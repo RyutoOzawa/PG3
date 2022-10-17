@@ -3,20 +3,30 @@
 #include<time.h>
 #include<stdlib.h>
 
-typedef void (*Pfunc)();
+typedef void (*Pfunc)(int);
 
 //コールバック関数
-void Callback() {
+void Dice(int num) {
 	//ランダムな値を返す
-	printf("結果:%d\n",rand());
+	int randNum;
+	randNum = rand() % 6 + 1;
+	
+	printf("さいころの結果:%d\n", randNum);
+	if (randNum % 2 == num % 2) {
+		printf("プレイヤーの勝ち\n");
+	}
+	else {
+		printf("プレイヤーの負け");
+	}
+	
 }
 
-void SetTimeOut(Pfunc p, int second) {
+void SetTimeOut(Pfunc p, int second,int num) {
 	//引数秒待機
 	printf("待機中...\n");
 	Sleep(second * 1000);
 	//コールバック関数の呼び出し
-	p();
+	p(num);
 }
 
 int main() {
@@ -25,20 +35,21 @@ int main() {
 	
 	
 	Pfunc p;
-	p = Callback;
-	printf("値を入力して下さい\n");
+	p = Dice;
 	int num = 0;
-	scanf_s("%d", &num);
+	printf("奇数だと思うならば1,偶数だと思うならば2を押してください;\n");
+	while (true) {
+		scanf_s("%d", &num);
+		if (num == 1 || num == 2) {
+			break;
+		}
+		else {
+			printf("入力値エラー:1か2を入力してください");
+		}
 
-	SetTimeOut(p, 3);
+	}
+	SetTimeOut(p, 3,num);
 
-	//結果が偶数の場合
-	if (num %2 ==0) {
-		printf("入力された値は偶数です\n");
-	}
-	else {
-		printf("入力された値は奇数です\n");
-	}
 
 
 	return 0;
