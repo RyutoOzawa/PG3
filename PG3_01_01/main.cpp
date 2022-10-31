@@ -10,7 +10,6 @@ void Dice(int num) {
 	//ランダムな値を返す
 	int randNum;
 	randNum = rand() % 6 + 1;
-	
 	printf("さいころの結果:%d\n", randNum);
 	if (randNum % 2 == num % 2) {
 		printf("プレイヤーの勝ち\n");
@@ -18,7 +17,6 @@ void Dice(int num) {
 	else {
 		printf("プレイヤーの負け");
 	}
-	
 }
 
 void SetTimeOut(Pfunc p, int second,int num) {
@@ -32,8 +30,6 @@ void SetTimeOut(Pfunc p, int second,int num) {
 int main() {
 	
 	srand(time(nullptr));
-	
-	
 	Pfunc p;
 	p = Dice;
 	int num = 0;
@@ -46,11 +42,7 @@ int main() {
 		else {
 			printf("入力値エラー:1か2を入力してください");
 		}
-
 	}
 	SetTimeOut(p, 3,num);
-
-
-
 	return 0;
 }
