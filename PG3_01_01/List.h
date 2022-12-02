@@ -18,7 +18,7 @@ public:
 		newCell = (CELL*)malloc(sizeof(CELL));
 		strcpy_s( newCell->data ,8, data);
 		newCell->prev = currentCell;
-		newCell->next = currentCell->next;
+		newCell->next = nullptr;
 
 		//ÅŒã”ö‚É‘}“ü‚Å‚«‚é‚æ‚¤‚É‚·‚é
 		if (currentCell->next) {
@@ -32,14 +32,18 @@ public:
 
 	//ƒZƒ‹ˆê——•\Ž¦
 	void Index(CELL* endCell) {
-		int no = 1;
+		int no = 0;
 		while (endCell->next != nullptr) {
-	
-			endCell = endCell->next;
+			no++;
 			printf("%d:", no);
 			printf("%s,\n", endCell->data);
-			no++;
+			endCell = endCell->next;
+			
+
 		}
+		no++;
+		printf("%d:", no);
+		printf("%s\n", endCell->data);
 		printf("\n");
 		printf("—v‘f”:%d\n", no);
 	};
@@ -59,7 +63,7 @@ public:
 	}
 
 	int GetAllCell(CELL* cell) {
-		int allnum = 0;
+		int allnum = 1;
 		CELL* insertCell = cell;
 		while (insertCell->next != nullptr)
 		{
@@ -68,6 +72,22 @@ public:
 		}
 
 		return allnum;
+	}
+
+	void DeleteCell(CELL* cell,int iterator) {
+		CELL* newcell = cell;
+
+		for (size_t i = 0; i < iterator; i++) {
+			newcell = newcell->next;
+		}
+
+		if (newcell->next == nullptr) {
+			newcell->prev->next = nullptr;
+		}
+		else {
+			newcell->prev->next = newcell->next;
+			newcell->next->prev = newcell->prev;
+		}
 	}
 };
 
