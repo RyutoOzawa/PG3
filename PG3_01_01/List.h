@@ -4,7 +4,6 @@
 
 struct CELL {
 	char data[8];
-	CELL* prev = nullptr;
 	CELL* next = nullptr;
 };
 
@@ -15,15 +14,14 @@ public:
 	//リストの生成
 	void Create(CELL* currentCell, const char* data) {
 		CELL* newCell;
+		//新規セルのメモリ確保
 		newCell = (CELL*)malloc(sizeof(CELL));
 		strcpy_s( newCell->data ,8, data);
-		newCell->prev = currentCell;
-		newCell->next = currentCell->next;
+		newCell->next = nullptr;
 
-		//最後尾に挿入できるようにする
-		if (currentCell->next) {
-			CELL* newCell = currentCell->next;
-			newCell->prev = newCell;
+		while (currentCell->next != nullptr)
+		{
+			currentCell = currentCell->next;
 		}
 
 		currentCell->next = newCell;
@@ -34,12 +32,15 @@ public:
 	void Index(CELL* endCell) {
 		int no = 1;
 		while (endCell->next != nullptr) {
-	
-			endCell = endCell->next;
 			printf("%d:", no);
 			printf("%s,\n", endCell->data);
+			endCell = endCell->next;
+			
 			no++;
 		}
+		printf("%d:", no);
+		printf("%s\n", endCell->data);
+
 		printf("\n");
 		printf("要素数:%d\n", no);
 	};

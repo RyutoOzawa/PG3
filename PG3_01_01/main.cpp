@@ -6,9 +6,7 @@ enum ListState {
 	MENU,	//0,メニュー
 	DISPLAY,//1,要素表示
 	INSERT,	//2,挿入
-	EDIT,	//3,編集
-	DELETE,	//4,削除
-	SORT,	//5,並び替え
+	DELETE,	//3,削除
 };
 
 int main() {
@@ -23,7 +21,7 @@ int main() {
 	list.Create(cell, "aaaaa");
 	list.Create(cell, "bbbbb");
 	list.Create(cell, "ccccc");
-	
+
 
 	while (1)
 	{
@@ -32,14 +30,8 @@ int main() {
 
 			printf("[要素の操作]\n");
 			printf("1.要素の表示\n");
-			printf("2.要素の挿入\n");
-			printf("3.要素の編集\n");
-
-			//要素が1以上の時のみ表示
-			if (cell) {
-				printf("4.要素の削除\n");
-				printf("5.要素の並び替え(オプション)\n");
-			}
+			printf("2.最後尾に要素の挿入\n");
+			printf("3.最後尾の要素の削除\n");
 
 			printf("\n");
 			printf("-----------------------------\n");
@@ -48,94 +40,31 @@ int main() {
 
 		}
 		else if (inputNum == DISPLAY) {
-			int disprayInput = 0;
-			printf("[要素の表示]\n");
-			printf("1.要素の一覧表示\n");
-			printf("2.要素を指定して要素を表示\n");
-			printf("9.要素操作に戻る\n");
+
+			printf("[要素の一覧表示]\n");
+			printf("要素一覧:{\n");
+			//要素の一覧表示をここに
+			list.Index(cell);
+
 			printf("\n");
-			printf("操作を選択してください\n");
-			scanf_s("%d", &disprayInput);
-			while (disprayInput != 1 && disprayInput != 2 && disprayInput != 9) {
-				printf("入力エラー:操作を入力してください\n");
-				scanf_s("%d", &disprayInput);
-			}
-			if (disprayInput == 1) {
-				printf("[要素の一覧表示]\n");
-				printf("要素一覧:{\n");
-				//要素の一覧表示をここに
-				list.Index(cell);
-
-				printf("\n");
-				printf("-------------------------\n");
-				printf("1.要素の表示に戻る\n");
-				printf("2.要素の操作に戻る\n");
-				scanf_s("%d", &inputNum);
-				if (inputNum == 1) {
-					inputNum = DISPLAY;
-				}
-				else if (inputNum == 2) {
-					inputNum = MENU;
-				}
-
-			}
-			else if (disprayInput == 2) {
-				printf("[順番を指定して要素を表示]\n");
-				printf("表示したい要素の順番を指定してください\n");
-				int datanum = 0;
-				scanf_s("%d", &datanum);
-				//データ番号使って要素を表示
-				//要素の数を調べる
-				allCellCount = list.GetAllCell(cell);
-
-
-				printf("\n");
-				if (datanum < allCellCount) {
-					CELL* displayCell = cell;
-					for (int i = 0; i < allCellCount; i++) {
-						displayCell = displayCell->next;
-					}
-					printf("%d : %s\n", allCellCount, displayCell->data);
-				}
-				else {
-					printf("指定要素が範囲外です");
-				}
-
-				printf("\n");
-				printf("-------------------------\n");
-				printf("1.要素の表示に戻る\n");
-				printf("2.要素の操作に戻る\n");
-				scanf_s("%d", &inputNum);
-
-			}
-			else if (disprayInput == 9) {
+			printf("-------------------------\n");
+			printf("0.初期画面に戻る\n");
+			scanf_s("%d", &inputNum);
+			if (inputNum == 0) {
 				inputNum = MENU;
 			}
-
+			else {
+				printf("入力エラー\n");
+				break;
+			}
 
 		}
-		else if (inputNum == EDIT) {
-			printf("[要素の編集]\n");
-			printf("編集したい要素の番号を指定してください\n");
-			int editInput = 0;
-			scanf_s("%d\n" ,&editInput);
 
-			//要素がある場合
-			if(true){}
-			//要素がない場合
-			else {}
-
-			//メニューに戻る
-			inputNum = 0;
-		}
 		else if (inputNum == INSERT) {
 			printf("[要素の挿入]\n");
 		}
 		else if (inputNum == DELETE) {
 			printf("[要素の削除]\n");
-		}
-		else if (inputNum == SORT) {
-			printf("[要素の並び替え]\n");
 		}
 		else {
 			printf("入力エラー");
