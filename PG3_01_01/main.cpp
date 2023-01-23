@@ -4,10 +4,10 @@
 #include<stdlib.h>
 #include<functional>
 
-typedef int (*Pfunc)(int);
+typedef void (*Pfunc)(int);
 
 //コールバック関数
-int Dice(int num) {
+void Dice(int num) {
 	//ランダムな値を返す
 	int randNum = rand();
 	randNum  %= 6 + 1;
@@ -19,7 +19,7 @@ int Dice(int num) {
 	else {
 		printf("プレイヤーの負けです");
 	}
-	return randNum;
+
 
 }
 
@@ -36,8 +36,8 @@ int main(int argc,const char *argv[]) {
 	srand(time(nullptr));
 	
 	
-	Pfunc p;
-	p = Dice;
+	Pfunc diceFuncP;
+	diceFuncP = Dice;
 	int num = 0;
 	printf("奇数だと思うならば1,偶数だと思うならば2を押してください\n");
 	while (true) {
@@ -53,13 +53,13 @@ int main(int argc,const char *argv[]) {
 	}
 
 	//タイムアウト関数
-	std::function<void(Pfunc ,int,int)> SetTimeOut= [](Pfunc func, int second,int number) {
+	std::function<void(Pfunc ,int)> SetTimeOut= [=](Pfunc func, int second) {
 		//待機後に実行
 		printf("待機中...\n");
-		Sleep(second * 1000);
-		func(number);
+		Sleep(second);
+		func(num);
 	};
-	SetTimeOut(p, 3,num);
+	SetTimeOut(diceFuncP, 3000);
 
 
 	return 0;
