@@ -1,4 +1,11 @@
 #pragma once
+
+enum StateIndex {
+	approach,
+	attack,
+	leave,
+};
+
 class Enemy
 {
 public:
@@ -8,6 +15,16 @@ public:
 public:
 	static int allEnemyCount;
 
-	void Kill() { allEnemyCount = 0; }
-};
+	int state = approach;
 
+	void Kill() { allEnemyCount = 0; }
+
+	void Approach();
+	void Attack();
+	void Leave();
+
+	void Update();
+
+private:
+	static void(Enemy::* stateChangeTable[])();
+};

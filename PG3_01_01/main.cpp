@@ -5,23 +5,23 @@
 
 
 int main() {
-	Enemy enemy1;
-	Enemy enemy2;
-	Enemy enemy3;
+	Enemy enemy;
 	
 	int input = 0;
 
+	while (true)
+	{
 
-		printf("1‚ð‰Ÿ‚·‚Æ“G‚ðƒLƒ‹‚µ‚Ü‚·B\n");
-		printf("Œ»Ý‚Ì“G‚Ì”:%d\n", Enemy::allEnemyCount);
+
+		printf("”CˆÓ‚ÌƒL[‘€ì‚Å“G‚Ìs“®‚ª•Ï‚í‚è‚Ü‚·\n1:Ú‹ß\n2:UŒ‚\n3:—£’E\n");
+		printf("Œ»Ý‚Ìs“®”Ô†:%d\n", enemy.state);
 		scanf_s("%d", &input);
-		if (input == 1) {
-			enemy1.Kill();
-		}
-		
-		printf("‚·‚×‚Ä‚Ì“G‚ðƒLƒ‹‚µ‚Ü‚µ‚½\n");
-		printf("Œ»Ý‚Ì“G‚Ì”:%d\n", Enemy::allEnemyCount);
+		//“ü—Í’l‚Éó‘Ô•ÏX
+		enemy.state = input-1;
 
+		//ŠÖ”ŽÀs
+		enemy.Update();
+	}
 	//printf("nowScene:%d\n", sceneManager->sceneNo);
 	
 	return 0;
