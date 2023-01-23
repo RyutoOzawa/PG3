@@ -23,13 +23,13 @@ int Dice(int num) {
 
 }
 
-void SetTimeOut(Pfunc p, int second,int num) {
-	//引数秒待機
-	printf("待機中...\n");
-	Sleep(second * 1000);
-	//コールバック関数の呼び出し
-	p(num);
-}
+//void SetTimeOut(Pfunc p, int second,int num) {
+//	//引数秒待機
+//	printf("待機中...\n");
+//	Sleep(second * 1000);
+//	//コールバック関数の呼び出し
+//	p(num);
+//}
 
 int main(int argc,const char *argv[]) {
 	
@@ -52,10 +52,14 @@ int main(int argc,const char *argv[]) {
 		}
 	}
 
-	std::function<void(Pfunc,int,int)> fx = [](Pfunc p,int second,int num){
-		SetTimeOut(p, second,num);
+	//タイムアウト関数
+	std::function<void(Pfunc ,int,int)> SetTimeOut= [](Pfunc func, int second,int number) {
+		//待機後に実行
+		printf("待機中...\n");
+		Sleep(second * 1000);
+		func(number);
 	};
-	fx(p, 3,num);
+	SetTimeOut(p, 3,num);
 
 
 	return 0;
